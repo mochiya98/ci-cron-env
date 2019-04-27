@@ -1,0 +1,8 @@
+language: bash
+before_install:
+  - curl -s -L https://clis.cloud.ibm.com/download/bluemix-cli/latest/linux64/archive|tar -xzvf -
+script:
+  - ./IBM_Cloud_CLI/ibmcloud login -a https://api.ng.bluemix.net -u $TRAVIS_IBM_CLOUD_ID -p $TRAVIS_IBM_CLOUD_PASSWORD > /dev/null
+  - ./IBM_Cloud_CLI/ibmcloud target --cf-api https://api.ng.bluemix.net -o $TRAVIS_IBM_CLOUD_ID -s dev > /dev/null
+  - ./IBM_Cloud_CLI/ibmcloud cf install
+  - ./IBM_Cloud_CLI/ibmcloud app env-set socket-io CHK_TIME `date "+%Y%m%d%H%M%S"`
